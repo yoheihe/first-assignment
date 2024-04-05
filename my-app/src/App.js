@@ -15,14 +15,12 @@ function App() {
 
   return (
     <div className="container" key={member.id}>
-      {member.map((member) => {
-        return (
+      {member.map((member) => (
           <div className="member" key={member.id}>
-            <p>member.name</p>
+            <p>{member.name}</p>
             </div>
-        );
-      })}
-      </div>
+      ))}
+    </div>
   )
 
   // const [count, setCount] = useState(0);
