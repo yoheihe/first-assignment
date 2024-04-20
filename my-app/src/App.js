@@ -17,6 +17,9 @@ const handleOperatorClick = (operator) => {
     if (input !== "0") {
       setInput((prevInput) => prevInput + operator);
     } //値が0でなければ、prevInputに四則演算値を追加
+    if (input.slice(-1) == '+') {
+      setInput((prevInput) => prevInput);
+    }
   };
 
   // 小数点のボタンがクリックされた時の処理
@@ -51,10 +54,11 @@ const handleOperatorClick = (operator) => {
   const evaluateExpression = (expression) => {
     
   //不正な文字を取り除く
-  const sanitizedExpression = expression.replace(/[^-()\d/*+.]/g, ''); 
+  const sanitizedExpression = expression.replace(/[^-()\d/*+.]/g, '');  //正規表現
 
   //評価
-  const result = Function(`"use strict";return (${sanitizedExpression})`)();
+  const result = eval(sanitizedExpression);
+
 
     if (Number.isInteger(result)) {
       return result; // 整数の場合は ".0" を表示せずにそのまま返す
