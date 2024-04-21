@@ -3,41 +3,40 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-//stateの設定
-const [input, setInput] = useState("0"); //現在の入力値
-const [result, setResult] = useState("0"); //計算結果
+  //stateの設定
+  const [input, setInput] = useState("0"); //現在の入力値
+  const [result, setResult] = useState("0"); //計算結果
 
-//数値のボタンがクリックされた時の処理
-const handleNumberClick = (value) => {
+  //数値のボタンがクリックされた時の処理
+  const handleNumberClick = (value) => {
     setInput((prevInput) => (prevInput === "0" ? value : prevInput + value));
   }; //prevInputの値が0だったら、valueに置き換え、0でなかったらvalueを追加
 
-// 四則演算子のボタンがクリックされた時の処理
-const handleOperatorClick = (operator) => {
-    if (input !== "0") {
+  // 四則演算子のボタンがクリックされた時の処理
+  const handleOperatorClick = (operator) => {
+    if(input.slice(-1) !== operator) {
       setInput((prevInput) => prevInput + operator);
-    } //値が0でなければ、prevInputに四則演算値を追加
-    if (input.slice(-1) == '+') {
-      setInput((prevInput) => prevInput);
     }
   };
+
+
 
   // 小数点のボタンがクリックされた時の処理
   const handleDecimalClick = () => {
     setInput((prevInput) => (prevInput.includes(".") ? prevInput : prevInput + "."));
   }; //現在の入力値に小数点が含まれているか確認。小数点が含まれていなければ、小数点を追加
-  
+
   // バックスペースのボタンがクリックされた時の処理
   const handleBackspace = () => {
     setInput((prevInput) => prevInput.slice(0, prevInput.length - 1));
   }; //最後の値を削除
-  
+
   // クリアのボタンがクリックされた時の処理
   const handleClear = () => {
     setResult(0);
     setInput("0");
   }; //結果と表示の値を0にする
-  
+
   // 計算のボタンがクリックされた時の処理
   const handleCalculate = () => {
     try {
@@ -49,15 +48,15 @@ const handleOperatorClick = (operator) => {
       setResult("エラー");
     } //エラーが出た時、メッセージを表示
   };
-  
+
   //四則演算を評価する関数
   const evaluateExpression = (expression) => {
-    
-  //不正な文字を取り除く
-  const sanitizedExpression = expression.replace(/[^-()\d/*+.]/g, '');  //正規表現
 
-  //評価
-  const result = eval(sanitizedExpression);
+    //不正な文字を取り除く
+    const sanitizedExpression = expression.replace(/[^-()\d/*+.]/g, '');  //正規表現
+
+    //評価
+    const result = eval(sanitizedExpression);
 
 
     if (Number.isInteger(result)) {
